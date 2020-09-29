@@ -11,7 +11,7 @@ function generateHomeTemplate() {
     return `<h1>Bookmark App</h1>
     <div class="header-container">
         <form class="new-bookmark">
-        <button>New Bookmark!</button>
+        <button class="general-btn">New Bookmark!</button>
         <select class="ratingFilter">
         <option value="1">1 or higher</option>
         <option value="2">2 or higher</option>
@@ -68,11 +68,11 @@ const generateBookmarks = () => {
             <div class="condensed">
                 <h4 class="bookmark-name">${bookmarks[i].title}</h4>
                 <h4>Rating: ${bookmarks[i].rating}</h4>
-                <input type="button" class="expand-button" value="expand">
+                <input type="button" class="expand-button general-btn" value="expand">
             </div>
             <div class = "expanded hidden">
-            <input type="button" onclick="location.href='${bookmarks[i].url}'" target="_blank" value="Visit Site" />
-                <input type="button" class="delete-button" value="Delete">
+            <input type="button" class="general-btn" onclick="location.href='${bookmarks[i].url}'" target="_blank" value="Visit Site" />
+                <input type="button" class="delete-button general-btn" value="Delete">
                 <p>${bookmarks[i].description}</p>
             </div>
         </div>
@@ -83,6 +83,12 @@ const generateBookmarks = () => {
 
 /************EVENT LISTENERS***************** */
 
+function deleteBookmark() {
+
+}
+
+
+// toggles hidden class so visit site btn delete btn and descriptions show
 function expandBookmark() {
     $('.expand-button').on('click', () => {
         console.log('expandBookmark triggered');
@@ -96,7 +102,6 @@ function newBookmarkButtonSubmit() {
     $('.main').submit((event) => {
         event.preventDefault();
         console.log('New Bookmark Button Pressed');
-        store.store.adding = true;
         let content = addBookmarkTemplate();
         $('.main').html(content);
         newBookmarkSubmitHandler();
@@ -117,6 +122,8 @@ const newBookmarkSubmitHandler = function () {
 
         // add new bookmark to store
         store.store.bookmarks.push(obj);
+
+        // calls a PUT fetch to api bookmarks
         api.createBookmark(obj);
 
 
@@ -139,25 +146,7 @@ const newBookmarkCancelHandler = function () {
 };
 
 
-
-// const deleteHandler = () => {
-//     $('.main').on('click', '.bookmark-delete', function (e) {
-//         const id = getBookmarkItemID(e.currentTarget);
-//         api
-//             .deleteBookmark(id)
-//             .then(() => {
-//                 store.deleteBookmark(id);
-//                 render();
-//             })
-//             .catch((err) => {
-//                 store.setError(err.message);
-//             });
-//     });
-// };
-
-
-
-
+// Should be in store???
 function filterByRating() {
     let bookmarkRating = store.store.filter;
     return store.store.bookmarks.filter((item) => {
@@ -165,8 +154,9 @@ function filterByRating() {
     });
 }
 
+// Store??
 const filterRatingHandler = () => {
-    $('.ratingFilter').on('change', event => {
+    $('.ratingFilter').on('change', () => {
         store.store.filter = $('.ratingFilter').val();
         console.log($('.ratingFilter').val());
         render();
@@ -188,6 +178,7 @@ function bindEventHandlers() {
     filterRatingHandler();
     newBookmarkSubmitHandler();
     expandBookmark();
+    deleteBookmark();
 }
 export default {
     bindEventHandlers,
