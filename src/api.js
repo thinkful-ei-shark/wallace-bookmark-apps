@@ -1,6 +1,7 @@
 const BASE_URL = 'https://thinkful-list-api.herokuapp.com/thomaswallace/bookmarks';
 
-
+// This block of code seems to be how everyone is handling API call error handling
+// Need explained to me whats happening
 const bookmarksApiFetch = (...args) => {
     let error;
     return fetch(...args)
@@ -31,7 +32,8 @@ function getBookmarks() {
 
 
 
-function createBookmark(newBookmark) {
+function createBookmark(bookmark) {
+    const newBookmark = JSON.stringify(bookmark);
     const options = {
         method: 'POST',
         headers: new Headers({

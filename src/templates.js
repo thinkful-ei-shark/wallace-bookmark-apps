@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import store from './store';
+import api from './api';
 
 
 /*******TEMPLATES***************** */
@@ -100,7 +101,9 @@ const newBookmarkSubmitHandler = function () {
             description: $('#bookmark-textarea').val()
         };
 
+        // add new bookmark to store
         store.store.bookmarks.push(obj);
+        api.createBookmark(obj);
 
 
         console.log(obj.url);
