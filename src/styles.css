@@ -1,0 +1,42 @@
+/***** Header Section Styles*****/
+h1 {
+  text-align: center;
+}
+
+.header-container {
+  border: solid;
+  margin: 5%;
+}
+
+.new-bookmark {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: "Roboto", sans-serif;
+  margin: 5%;
+}
+
+/**********Add New Bookmark Section ***************/
+.addBookmarkSection {
+  margin: 5%;
+  text-align: center;
+}
+
+.addBookmarkSection h3 {
+  text-align: center;
+}
+
+#add-bookmark-url {
+  width: 35%;
+  margin: 3%;
+}
+
+#add-bookmark-title {
+  width: 35%;
+  margin: 3%;
+}
+
+.desc-label {
+  color: pink;
+  margin: 3%;
+}
