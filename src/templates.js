@@ -12,7 +12,6 @@ function generateHomeTemplate() {
     <div class="header-container">
         <form class="new-bookmark">
         <button>New Bookmark!</button>
-        <p>Filter</p>
         <select class="ratingFilter">
         <option value="1">1 or higher</option>
         <option value="2">2 or higher</option>
@@ -49,8 +48,8 @@ function addBookmarkTemplate() {
         </div>
         
         <div class="description-div">
-            <label for="bookmark-textarea" class="desc-label">Add a description: (Optional)</label>
-            <textarea name="desc" id="bookmark-textarea" rows="5"></textarea>
+            <label for="bookmark-textarea" class="desc-label">Add a description:</label>
+            <textarea name="desc" id="bookmark-textarea" rows="5" required></textarea>
         </div>
         <div class="form-buttons" id="form-buttons">
           <input type="button" class="general-btn" value="Cancel" id="cancel-add-bookmark">
@@ -65,17 +64,32 @@ const generateBookmarks = () => {
     let bookmarks = filterByRating();
     for (let i in bookmarks) {
         content += `
-        <div>
-        <h4>${bookmarks[i].title}</h4>
-        <a href='${bookmarks[i].url}'>${bookmarks[i].url}</a>
-        <p>Rating: ${bookmarks[i].rating}</p>
-        <p>description: ${bookmarks[i].description}</p>
-        </div>`;
+        <div class="book-container">
+            <div class="condensed">
+                <h4 class="bookmark-name">${bookmarks[i].title}</h4>
+                <h4>Rating: ${bookmarks[i].rating}</h4>
+                <input type="button" class="expand-button" value="expand">
+            </div>
+            <div class = "expanded hidden">
+            <input type="button" onclick="location.href='${bookmarks[i].url}'" target="_blank" value="Visit Site" />
+                <input type="button" class="delete-button" value="Delete">
+                <p>${bookmarks[i].description}</p>
+            </div>
+        </div>
+        `;
     }
     return content;
 };
 
 /************EVENT LISTENERS***************** */
+
+function expandBookmark() {
+    $('.expand-button').on('click', () => {
+        console.log('expandBookmark triggered');
+        $('.expanded').toggleClass('hidden');
+    });
+}
+
 
 function newBookmarkButtonSubmit() {
 
@@ -173,6 +187,7 @@ function bindEventHandlers() {
     newBookmarkButtonSubmit();
     filterRatingHandler();
     newBookmarkSubmitHandler();
+    expandBookmark();
 }
 export default {
     bindEventHandlers,
