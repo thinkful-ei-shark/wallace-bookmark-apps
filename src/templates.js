@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import store from './store';
-import api from './api';
+
 
 /*******TEMPLATES***************** */
 
@@ -121,12 +121,7 @@ const newBookmarkCancelHandler = function () {
 
 };
 
-const newBookmarkHandler = () => {
-    // $('.main').on('submit', '.newBookmark', () => {
-    //     store.store.adding = !store.store.adding;
-    //     render();
-    // });
-};
+
 
 // const deleteHandler = () => {
 //     $('.main').on('click', '.bookmark-delete', function (e) {
@@ -143,11 +138,8 @@ const newBookmarkHandler = () => {
 //     });
 // };
 
-const getBookmarkItemID = function (bookmark) {
-    return $(bookmark).closest('.bookmark-item').data('bookmark-id');
-};
 
-const expandToggleHandler = () => {};
+
 
 function filterByRating() {
     let bookmarkRating = store.store.filter;
@@ -177,7 +169,6 @@ function render() {
 function bindEventHandlers() {
     newBookmarkButtonSubmit();
     filterRatingHandler();
-    newBookmarkHandler();
     newBookmarkSubmitHandler();
 }
 export default {
