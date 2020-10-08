@@ -4,6 +4,7 @@ const store = {
     adding: false,
     error: null,
     filter: 1,
+
 };
 
 // Any and all functions manipulating store go here
@@ -14,9 +15,10 @@ function addItem() {
     });
 }
 
-// function findById(id) {
-//     return this.store.bookmarks.find((bookmark) => bookmark.id === id);
-// }
+// not using findbyId at all
+function findById(id) {
+    return this.store.bookmarks.find((bookmark) => bookmark.id === id);
+}
 
 
 function addBookmark(bookmark) {
@@ -28,13 +30,22 @@ function setFilter(filter) {
     this.store.filter = filter;
 }
 
+// clears store not using this function at all
+function clearStore() {
+    this.store.bookmarks = [];
+}
+
+function deleteBookmark(id) {
+    this.bookmarks = this.store.bookmarks.filter(currentItem => currentItem.id !== id);
+}
 
 
 export default {
     store,
     addItem,
-    //findById,
     setFilter,
     addBookmark,
-
+    clearStore,
+    findById,
+    deleteBookmark
 };

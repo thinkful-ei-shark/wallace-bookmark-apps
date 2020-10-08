@@ -1,4 +1,12 @@
-s a user:
+Thomas Wallace bookmarks app
+
+/************\*\*\*************BUGS TO FIX******\*\*******/
+
+Expand button expands all bookmark objects it should only expand one.
+
+Delete button is not functional yet.
+
+layout gets wonky when screen gets bigger.
 
 I can add bookmarks to my bookmark list. Bookmarks contain:
 

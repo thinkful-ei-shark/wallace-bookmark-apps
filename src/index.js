@@ -7,7 +7,6 @@ import store from './store';
 function init() {
     api.getBookmarks().then((bookmarks) => {
         bookmarks.forEach((bookmark) => store.addBookmark(bookmark));
-        store.addItem();
         templates.render();
     });
 
@@ -15,3 +14,5 @@ function init() {
 }
 
 $(init);
+
+export default init;

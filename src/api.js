@@ -1,7 +1,6 @@
 const BASE_URL = 'https://thinkful-list-api.herokuapp.com/thomaswallace/bookmarks';
 
-// This block of code seems to be how everyone is handling API call error handling
-// Need explained to me whats happening
+
 const bookmarksApiFetch = (...args) => {
     let error;
     return fetch(...args)
@@ -44,6 +43,7 @@ function createBookmark(bookmark) {
     return bookmarksApiFetch(`${BASE_URL}`, options);
 }
 
+// delete bookmark from API function 
 const deleteBookmark = (id) => {
     return bookmarksApiFetch(`${BASE_URL}/${id}`, {
         method: 'DELETE'
@@ -54,5 +54,6 @@ const deleteBookmark = (id) => {
 export default {
     getBookmarks,
     createBookmark,
-    deleteBookmark
+    deleteBookmark,
+    bookmarksApiFetch
 };
