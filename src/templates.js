@@ -85,9 +85,9 @@ const generateBookmarks = () => {
 /************EVENT LISTENERS***************** */
 /****** BUGS***
  * 
- *  Right now whatver bookmarks were already in API have Ids
+ *  Right now whatever bookmarks were already in API have Ids
  *  but newly generated bookmarks dont have one
- * 
+ *  this is whats causing delete issues
  * 
  * ***/
 
@@ -99,7 +99,7 @@ const getBookmarkIdFromElement = function (item) {
         .data('item-id');
 };
 
-function deleteBookmark() {
+const deleteBookmark = () => {
     $('.delete-button').on('click', (event) => {
         const id = getBookmarkIdFromElement(event.currentTarget);
         //const id = $(event.currentTarget).parent().parent().attr('id');
@@ -111,21 +111,21 @@ function deleteBookmark() {
         //$('.main').html('');
         render();
     });
-}
+};
 
 
 // toggles hidden class so visit site btn delete btn and descriptions show
-function expandBookmark() {
+const expandBookmark = () => {
     $('.expand-button').on('click', (event) => {
         // navigates DOM from currentTarget to hidden 
         // expanded bookmark and toggles class so it shows
         $($(event.currentTarget).parent().parent().children()[1]).toggleClass('hidden');
 
     });
-}
+};
 
 
-function newBookmarkButtonSubmit() {
+const newBookmarkButtonSubmit = () => {
 
     $('.main').submit((event) => {
         event.preventDefault();
@@ -136,7 +136,7 @@ function newBookmarkButtonSubmit() {
         newBookmarkSubmitHandler();
         newBookmarkCancelHandler();
     });
-}
+};
 
 // new bookmark submit btn
 const newBookmarkSubmitHandler = function () {
@@ -152,22 +152,16 @@ const newBookmarkSubmitHandler = function () {
 
         };
 
-        // add new bookmark to store
-        store.addBookmark(obj);
+
+
 
         // calls a PUT fetch to api bookmarks to add bookmark to API
-        let bookmark = api.createBookmark(obj);
-
-        //console logging new bookmark
-        console.log(bookmark);
-        console.log(obj.url);
-        console.log(obj.title);
-        console.log(obj.rating);
-        console.log(obj.description);
-
-        $('.main').html('');
-
-        render();
+        api.createBookmark(obj).then(bookmark => {
+            // add new bookmark to store
+            store.addBookmark(bookmark);
+            $('.main').html('');
+            render();
+        });
     });
 };
 
@@ -183,12 +177,12 @@ const newBookmarkCancelHandler = function () {
 
 /*********Filter functions******* */
 // Should be in store???
-function filterByRating() {
+const filterByRating = () => {
     let bookmarkRating = store.store.filter;
     return store.store.bookmarks.filter((item) => {
         return item.rating >= bookmarkRating;
     });
-}
+};
 
 // Store??
 const filterRatingHandler = () => {

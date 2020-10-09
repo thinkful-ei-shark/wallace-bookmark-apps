@@ -1,6 +1,9 @@
+
+
+// Base URL fir API requests
 const BASE_URL = 'https://thinkful-list-api.herokuapp.com/thomaswallace/bookmarks';
 
-
+// blueprint for every api request (saves rewriting code)
 const bookmarksApiFetch = (...args) => {
     let error;
     return fetch(...args)
@@ -25,13 +28,12 @@ const bookmarksApiFetch = (...args) => {
         });
 };
 
-function getBookmarks() {
-    return bookmarksApiFetch(`${BASE_URL}`);
-}
+const getBookmarks = () => bookmarksApiFetch(`${BASE_URL}`);
 
 
 
-function createBookmark(bookmark) {
+
+const createBookmark = bookmark => {
     const newBookmark = JSON.stringify(bookmark);
     const options = {
         method: 'POST',
@@ -41,7 +43,7 @@ function createBookmark(bookmark) {
         body: newBookmark
     };
     return bookmarksApiFetch(`${BASE_URL}`, options);
-}
+};
 
 // delete bookmark from API function 
 const deleteBookmark = (id) => {

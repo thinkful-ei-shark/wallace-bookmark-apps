@@ -1,42 +1,46 @@
 const store = {
     bookmarks: [],
     // dont think we need these properties below
-    adding: false,
-    error: null,
+    //adding: false,
+    //error: null,
     filter: 1,
 
 };
 
 // Any and all functions manipulating store go here
 
-function addItem() {
+const addItem = () => {
     return store.bookmarks.map((bookmark) => {
         return (bookmark.expanded = false);
     });
-}
+};
 
 // not using findbyId at all
-function findById(id) {
+const findById = id => {
     return this.store.bookmarks.find((bookmark) => bookmark.id === id);
-}
+};
 
 
-function addBookmark(bookmark) {
-    this.store.bookmarks.push(bookmark);
-}
+const addBookmark = bookmark => {
+    store.bookmarks.push(bookmark);
+};
 
 
-function setFilter(filter) {
+const setFilter = filter => {
     this.store.filter = filter;
-}
+};
 
 // clears store not using this function at all
 function clearStore() {
     this.store.bookmarks = [];
 }
 
-function deleteBookmark(id) {
-    this.bookmarks = this.store.bookmarks.filter(currentItem => currentItem.id !== id);
+function deleteItem(id) {
+    this.store.bookmarks = this.store.bookmarks.filter(currentItem => currentItem.id !== id);
+    //     let removeIndex = this.store.bookmarks.map(item => item.id).indexOf(id);
+
+    //     ~removeIndex && this.store.bookmarks.splice(removeIndex, 1);
+    // 
 }
 
 
@@ -47,5 +51,5 @@ export default {
     addBookmark,
     clearStore,
     findById,
-    deleteBookmark
+    deleteItem
 };
