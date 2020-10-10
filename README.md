@@ -2,7 +2,7 @@ Thomas Wallace Bookmarks App
 
 /************\*\*\*************BUGS TO FIX******\*\*******/
 
-
+***Github Link directs to this ReadMe page instead of functioning App???***
 
 I can add bookmarks to my bookmark list. Bookmarks contain:
 
