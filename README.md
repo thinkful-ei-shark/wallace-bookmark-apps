@@ -1,12 +1,8 @@
-Thomas Wallace bookmarks app
+Thomas Wallace Bookmarks App
 
 /************\*\*\*************BUGS TO FIX******\*\*******/
 
-Expand button expands all bookmark objects it should only expand one.
 
-Delete button is not functional yet.
-
-layout gets wonky when screen gets bigger.
 
 I can add bookmarks to my bookmark list. Bookmarks contain:
 
