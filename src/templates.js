@@ -8,7 +8,8 @@ import api from './api';
 
 function generateHomeTemplate() {
     // this function will be for New bookmark button and filer by drop down box
-    return `<h1>Bookmark App</h1>
+    return `
+    <h1>Bookmark App</h1>
     <div class="header-container">
         <form class="new-bookmark">
         <button class="general-btn">New Bookmark!</button>
@@ -24,10 +25,9 @@ function generateHomeTemplate() {
 }
 
 function addBookmarkTemplate() {
-    return `
+    return `<h3 class="form-heading">Add New Bookmark</h3>
   <section class="addBookmarkSection">
       <form class="addBookmarkForm" id="addBookmarkForm">
-        <h3>Add New Bookmark</h3>
         <div>
             <label for="add-bookmark-url">Enter Url:</label>
             <input type="text" class="full-width" id="add-bookmark-url" name="url" required>
@@ -37,7 +37,7 @@ function addBookmarkTemplate() {
             <input type="text" class="full-width" id="add-bookmark-title" name="title" required>
         </div>
         <div class="rating-dropdown">
-        Rating:
+        <label>Rating:</label>
             <select class="rating">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -48,7 +48,7 @@ function addBookmarkTemplate() {
         </div>
         
         <div class="description-div">
-            <label for="bookmark-textarea" class="desc-label">Add a description:</label>
+            <label for="bookmark-textarea" class="desc-label">Add a description:</label><br>
             <textarea name="desc" id="bookmark-textarea" rows="5" required></textarea>
         </div>
         <div class="form-buttons" id="form-buttons">
@@ -56,7 +56,8 @@ function addBookmarkTemplate() {
           <input type="button" class="general-btn" value="Create" id="submit-newBookmark">
         </div>
       </form>
-    </section>`;
+    </section>
+    `;
 }
 
 const generateBookmarks = () => {
@@ -69,27 +70,18 @@ const generateBookmarks = () => {
             <div class="condensed">
                 <h4 class="bookmark-name">${bookmarks[i].title}</h4>
                 <h4>Rating: ${bookmarks[i].rating}</h4>
-                <input type="button" class="expand-button general-btn" value="expand">
+                <input type="button" class="expand-button general-btn" value="Expand">
             </div>
             <div class = "expanded hidden">
             <input type="button" class="general-btn" onclick="location.href='${bookmarks[i].url}'" target="_blank" value="Visit Site" />
                 <input type="button" class="delete-button general-btn" value="Delete">
-                <p>${bookmarks[i].description}</p>
+                <p>${bookmarks[i].desc}</p>
             </div>
         </div>
         `;
     }
     return content;
 };
-
-/************EVENT LISTENERS***************** */
-/****** BUGS***
- * 
- *  Right now whatever bookmarks were already in API have Ids
- *  but newly generated bookmarks dont have one
- *  this is whats causing delete issues
- * 
- * ***/
 
 // this gets the bookmark ID from closest element to current event
 // which would be itself
@@ -99,16 +91,15 @@ const getBookmarkIdFromElement = function (item) {
         .data('item-id');
 };
 
+/************EVENT LISTENERS***************** */
+
 const deleteBookmark = () => {
     $('.delete-button').on('click', (event) => {
         const id = getBookmarkIdFromElement(event.currentTarget);
-        //const id = $(event.currentTarget).parent().parent().attr('id');
-        console.log(id);
-        console.log($(event.currentTarget).parent().parent());
+        // delete item from api
         api.deleteBookmark(id);
         // need to delete current item from store here
         store.deleteItem(id);
-        //$('.main').html('');
         render();
     });
 };
@@ -120,25 +111,21 @@ const expandBookmark = () => {
         // navigates DOM from currentTarget to hidden 
         // expanded bookmark and toggles class so it shows
         $($(event.currentTarget).parent().parent().children()[1]).toggleClass('hidden');
-
     });
 };
 
 
 const newBookmarkButtonSubmit = () => {
-
     $('.main').submit((event) => {
         event.preventDefault();
-
         let content = addBookmarkTemplate();
         $('.main').html(content);
-        // adds event listeners to new buttons
         newBookmarkSubmitHandler();
         newBookmarkCancelHandler();
     });
 };
 
-// new bookmark submit btn
+// new bookmark submit btn handler
 const newBookmarkSubmitHandler = function () {
     // on newbookmark submit btn
     $('#submit-newBookmark').on('click', (event) => {
@@ -147,14 +134,8 @@ const newBookmarkSubmitHandler = function () {
             url: $('#add-bookmark-url').val(),
             title: $('#add-bookmark-title').val(),
             rating: $('.rating').val(),
-            description: $('#bookmark-textarea').val(),
-            // i need to generate an item id here?
-
+            desc: $('#bookmark-textarea').val(),
         };
-
-
-
-
         // calls a PUT fetch to api bookmarks to add bookmark to API
         api.createBookmark(obj).then(bookmark => {
             // add new bookmark to store
@@ -176,7 +157,7 @@ const newBookmarkCancelHandler = function () {
 };
 
 /*********Filter functions******* */
-// Should be in store???
+
 const filterByRating = () => {
     let bookmarkRating = store.store.filter;
     return store.store.bookmarks.filter((item) => {
@@ -184,11 +165,10 @@ const filterByRating = () => {
     });
 };
 
-// Store??
+
 const filterRatingHandler = () => {
     $('.ratingFilter').on('change', () => {
         store.store.filter = $('.ratingFilter').val();
-        console.log($('.ratingFilter').val());
         render();
     });
 };
@@ -198,8 +178,6 @@ function render() {
     $('.main').html(generateHomeTemplate());
     bindEventHandlers();
 }
-
-
 
 
 /*************EXPORT*********************** */

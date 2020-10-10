@@ -31,8 +31,6 @@ const bookmarksApiFetch = (...args) => {
 const getBookmarks = () => bookmarksApiFetch(`${BASE_URL}`);
 
 
-
-
 const createBookmark = bookmark => {
     const newBookmark = JSON.stringify(bookmark);
     const options = {
