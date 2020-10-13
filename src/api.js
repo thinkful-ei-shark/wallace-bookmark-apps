@@ -9,6 +9,7 @@ const bookmarksApiFetch = (...args) => {
     return fetch(...args)
         .then(res => {
             if (!res.ok) {
+                alert('Something went wrong! URL must start with https://!');
                 error = {
                     code: res.status
                 };
