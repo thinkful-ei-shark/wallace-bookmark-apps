@@ -136,13 +136,20 @@ const newBookmarkSubmitHandler = function () {
             rating: $('.rating').val(),
             desc: $('#bookmark-textarea').val(),
         };
-        // calls a PUT fetch to api bookmarks to add bookmark to API
-        api.createBookmark(obj).then(bookmark => {
-            // add new bookmark to store
-            store.addBookmark(bookmark);
-            $('.main').html('');
-            render();
-        });
+        if (obj.url === '') {
+            alert('Please enter a valid URL!');
+        } else if (obj.title === '') {
+            alert('Please enter a title!');
+        } else {
+            // calls a PUT fetch to api bookmarks to add bookmark to API
+            api.createBookmark(obj).then(bookmark => {
+                // add new bookmark to store
+                store.addBookmark(bookmark);
+                $('.main').html('');
+                render();
+            });
+        }
+
     });
 };
 
