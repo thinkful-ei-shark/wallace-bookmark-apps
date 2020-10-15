@@ -163,7 +163,7 @@ const newBookmarkCancelHandler = function () {
 
 };
 
-/*********Filter functions******* */
+/*********Filter functions*******(should be in store) */
 
 const filterByRating = () => {
     let bookmarkRating = store.store.filter;
