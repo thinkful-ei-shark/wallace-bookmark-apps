@@ -1,5 +1,3 @@
-
-
 // Base URL fir API requests
 const BASE_URL = 'https://thinkful-list-api.herokuapp.com/thomaswallace/bookmarks';
 
